@@ -33,14 +33,18 @@ namespace Journals
 
             if (isEmpty)
             {
-            _filename = "myfile.txt";
-            using (StreamWriter outputfile = new StreamWriter(_filename))
-            {
-                foreach(string entry in _entries)
+                _filename = "myfile.txt";
+                using (StreamWriter outputfile = new StreamWriter(_filename))
                 {
-                    outputfile.WriteLine(entry);
+                    foreach(string entry in _entries)
+                    {
+                        outputfile.WriteLine(entry);
+                    }
                 }
             }
+            else
+            {
+                Console.WriteLine("No entries to save. Type '1' to write an entry.\n ");
             }
         }
 
