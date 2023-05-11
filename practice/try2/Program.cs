@@ -4,8 +4,7 @@ using Prompts;
 using Journals;
 using Entries;
 
-namespace Program
-{
+namespace Program {
 
     class Program 
     {
