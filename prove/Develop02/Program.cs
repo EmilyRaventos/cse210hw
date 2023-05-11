@@ -3,6 +3,7 @@ using System.IO;
 using Prompts;
 using Journals;
 using Entries;
+using WelcomeUser;
 
 namespace Program
 {
@@ -11,27 +12,15 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            // Member variables
+            // Member variables/attributes of program.
             string _journalOpen = "yes";
             string _choice;
             string _entry;
 
-            string DisplayMenu() 
-            {
-                Console.WriteLine("Please select one of the following choices: ");
-                Console.WriteLine("1. Write\n2. Display\n3. Load\n4. Save\n5. Quit");
-                Console.WriteLine("What would you like to do?");
-                string _choice = Console.ReadLine();
-                return _choice;
-            }
-
-            // Create an instance/generate a prompt.
+            // Create an instance for a welcome page, prompt, journal, and entry.
+            Welcome welcome = new Welcome();
             Prompt prompt = new Prompt();
-
-            // Create a journal list for the current entries.
             Journal journal = new Journal();
-
-            // Create an entry to write the current response.
             Entry entry = new Entry();
 
             // Start of Program
@@ -39,7 +28,8 @@ namespace Program
 
             while (_journalOpen == "yes") 
             {
-               _choice = DisplayMenu();
+                welcome.UserLogin();
+               _choice = welcome.DisplayMenu();
 
                 if (_choice == "1") 
                 {
