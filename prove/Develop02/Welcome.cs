@@ -17,6 +17,7 @@ namespace WelcomeUser
         {
             while (_loggingIn == "yes")
             {
+                // Prompt user for username and password.
                 Console.Write("Username: ");
                 _userEntry1 = Console.ReadLine();
                 Console.Write("Password: ");
@@ -35,7 +36,7 @@ namespace WelcomeUser
             }
         }
 
-        // Display Welcome and Menu
+        // Display Menu and ask user for choice.
         public string DisplayMenu()
         {
             Console.WriteLine("Please select one of the following choices: ");
