@@ -25,8 +25,8 @@ namespace Program1
             Console.WriteLine("Welcome to the Scripture Memorizing Program!\n");
 
             // Display selected scripture
-            Reference reference = new Reference("John", "3", "16");
-            Scripture scripture = new Scripture(reference, "For the Lord shall be thy confidence, and shall keep thy foot from being taken.");
+            Reference reference = new Reference("Proverbs", "3", "5", "6");
+            Scripture scripture = new Scripture(reference, "Trust in the Lord with all thy heart and lean not unto thy own understanding; in all thy ways acknowledge him, and he shall direct thy paths.");
             Console.WriteLine(scripture.GetRenderedText());
 
             Console.Write("\nPress ENTER to continue or type \"exit\" to quit. ");
@@ -75,7 +75,7 @@ namespace Program1
                 }
             }
             
-            Console.WriteLine("Good Bye.");
+            Console.WriteLine("Thank you, good Bye.");
         }
     }
 }

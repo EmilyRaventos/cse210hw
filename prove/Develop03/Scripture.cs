@@ -69,9 +69,13 @@ namespace Scriptures
 
         public bool IsCompletelyHidden()
         {
-            if (GetWordCount() < _listOfIndex.Count)
+            if (_listOfWords.Count == _listOfIndex.Count)
             {
                 return _completelyHidden;
+            }
+            else 
+            {
+                _completelyHidden = false;
             }
             // foreach (Word word in _listOfWords)
             // {
@@ -84,8 +88,6 @@ namespace Scriptures
             //         _completelyHidden = true;
             //     }
             // }
-            _completelyHidden = false;
-
             return _completelyHidden;
         }
 
