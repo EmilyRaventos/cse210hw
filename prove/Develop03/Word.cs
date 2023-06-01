@@ -1,10 +1,9 @@
 using System;
-using ProgramSpace;
-using ScriptureSpace;
+using Program1;
 
-namespace WordSpace
+namespace Words
 {
-    public class Word
+    public class Word 
     {
         private string _word;
         private bool _hidden;
@@ -15,7 +14,7 @@ namespace WordSpace
         }
 
         public void Hide()
-        { 
+        {
             _hidden = true;
         }
 
@@ -35,15 +34,13 @@ namespace WordSpace
             {
                 return _word;
             }
-
             else
             {
                 string hiddenWord = "";
-                foreach (char letter in _word)
+                foreach (char letter in _word) 
                 {
                     hiddenWord += "_";
                 }
-
                 return hiddenWord;
             }
         }

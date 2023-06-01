@@ -1,26 +1,29 @@
 using System;
-using ReferenceSpace;
-using WordSpace;
-using ProgramSpace;
+using Program1;
+using References;
+using Words;
 
-namespace ScriptureSpace
+namespace Scriptures
 {
     public class Scripture
     {
-        private Reference _reference;
+        private string _reference;
         private string _scriptureText;
         private List<Word> _listOfWords;
-        private bool _completelyHidden = false;
-        
+        private bool _completelyHidden;
+        private List<int> _listOfIndex;
+        private int _numberOfHidden = 0;
+
         public Scripture(Reference reference, string scriptureText)
-        {
-            _reference = reference;
+        {  
+            _reference = reference.GetReferenceString();
             _scriptureText = scriptureText;
 
             List<Word> listOfWords = new List<Word>();
-            string [] words = _scriptureText.Split(" ");
 
-            foreach (string word in words)
+            string[] HideWords = _scriptureText.Split(" ");
+
+            foreach (string word in HideWords)
             {
                 Word newWord = new Word(word);
                 newWord.Show();
@@ -29,44 +32,66 @@ namespace ScriptureSpace
             }
 
             _listOfWords = listOfWords;
+
+            List<int> listOfIndex = new List<int>();
+            _listOfIndex = listOfIndex;
         }
 
-        public void HideWord(List<Word> _listOfWords)
+        public void HideWords()
         {
-            // Generate a random index
-            Random rnd = new Random();
-            int _randomIndex = rnd.Next(0, _listOfWords.Count);  
+            int randomIndex = GetRandomIndex();
+
+            // Only hide words once
+            while (_listOfIndex.Contains(randomIndex))
+            {
+                randomIndex = GetRandomIndex();
+            }
+            _listOfIndex.Add(randomIndex);
+            _listOfWords[randomIndex].Hide();
         }
 
-        public string GetRenderedText(List<Word> _listOfWords)
+        public string GetRenderedText()
         {
-            string reference = _reference.GetReferenceString();
-            string renderedText = reference + " ";
+            string renderedText = _reference + " ";
 
             foreach (Word word in _listOfWords)
             {
-                renderedText += word.GetRenderedText();
+                renderedText += word.GetRenderedText() + " ";
             }
-
             return renderedText;
+        }
+
+        private int GetRandomIndex()
+        {
+            Random random = new Random();
+            return random.Next(0, _listOfWords.Count());
         }
 
         public bool IsCompletelyHidden()
         {
-            foreach (Word word in _listOfWords)
+            if (GetWordCount() < _listOfIndex.Count)
             {
-                if (word.IsHidden() == false)
-                {
-                    _completelyHidden = false;
-                }
-
-                else
-                {     
-                    _completelyHidden = true;
-                }
+                return _completelyHidden;
             }
+            // foreach (Word word in _listOfWords)
+            // {
+            //     if (word.IsHidden() == false)
+            //     {
+            //         _completelyHidden = false;
+            //     }
+            //     else
+            //     {
+            //         _completelyHidden = true;
+            //     }
+            // }
+            _completelyHidden = false;
 
             return _completelyHidden;
+        }
+
+        public int GetWordCount()
+        {
+            return _listOfWords.Count();
         }
 
     }

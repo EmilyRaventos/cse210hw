@@ -1,50 +1,44 @@
 using System;
-using ScriptureSpace;
-using ProgramSpace;
+using Program1;
+using Scriptures;
 
-namespace ReferenceSpace
+namespace References
 {
     public class Reference
     {
         private string _book;
         private string _chapter;
         private string _verse;
-        private string _endVerse;
+        private string _endVerse = "";
+        private string _reference;
 
-        // Constructor
-        public Reference(string book, string chapterNumber, string verseNumber)
+        public Reference(string book, string chapter, string verse)
         {
             _book = book;
-            _chapter = chapterNumber;
-            _verse = verseNumber;
+            _chapter = chapter;
+            _verse = verse;
         }
 
-        // Constructor for scripture with multiple verses
-        public Reference(string book, string chapterNumber, string verseNumber, string endVerse)
+        public Reference(string book, string chapter, string verse, string endVerse)
         {
             _book = book;
-            _chapter = chapterNumber;
-            _verse = verseNumber;
+            _chapter = chapter;
+            _verse = verse;
             _endVerse = endVerse;
         }
 
         public string GetReferenceString()
         {
-            string reference = "";
-
-            // Get reference for single verse scripture.
-            if (_endVerse == null)
+            if (_endVerse == "")
             {
-                reference = $"{_book} {_chapter}:{_verse}";
+                _reference = $"{_book} {_chapter}:{_verse}";
             }
-
-            // Get reference for multiple verse scripture.
             else
             {
-                reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
+                _reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
             }
 
-            return reference;
+            return _reference;
         }
     }
 }
