@@ -10,8 +10,6 @@ namespace Program1
     {
         static void Main(string[] args)
         {
-            ConsoleKeyInfo pressedKey = new ConsoleKeyInfo();
-
             Console.WriteLine("Welcome to the Scripture Memorizing Program!\n");
 
             // Display selected scripture
@@ -19,7 +17,9 @@ namespace Program1
             Scripture scripture = new Scripture(reference, "Trust in the Lord with all thy heart and lean not unto thy own understanding; in all thy ways acknowledge him, and he shall direct thy paths.");
             Console.WriteLine(scripture.GetRenderedText());
 
+            // Ask for user input
             Console.Write("\nPress ENTER to continue or press Esc to quit. ");
+            ConsoleKeyInfo pressedKey = new ConsoleKeyInfo();
             pressedKey = Console.ReadKey();
 
             bool _isHidden = scripture.IsCompletelyHidden();
@@ -37,12 +37,13 @@ namespace Program1
                     scripture.HideWords();
                     scripture.HideWords();
 
+                    // Count how many words are hidden to later determine if all are hidden
                     hiddenWordCount += 3;
 
                     // Clear the Console
                     Console.Clear();
 
-                    // Display the scripture with some words hidden
+                    // Display the scripture with words hidden
                     Console.WriteLine("Welcome to the Scripture Memorizing Program!");
                     Console.WriteLine(scripture.GetRenderedText());
                     Console.Write("\nPress ENTER to continue or press Esc to quit. ");
@@ -58,11 +59,11 @@ namespace Program1
                     _isComplete = true;
                 }
 
-                // Make sure user enters valid selection (ENTER or "exit")
                 else
                 {
-                    Console.WriteLine("Not a valid selection.");
-                    Console.Write("Please press ENTER to continue or type \"exit\" to quit. ");
+                    Console.Write("\nNot valid selection. Press ENTER to continue or press Esc to quit. ");
+                    pressedKey = Console.ReadKey();
+
                 }
 
                 // End loop if all words are hidden
