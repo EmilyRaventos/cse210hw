@@ -2,6 +2,7 @@ using System;
 using References;
 using Scriptures;
 using Words;
+using System.Text;
 
 namespace Program1
 {
@@ -9,18 +10,7 @@ namespace Program1
     {
         static void Main(string[] args)
         {
-            // // Read all scriptures from scriptures.txt to a list
-            // string[] scriptures = System.IO.File.ReadAllLines("scriptures.txt");
-            // _scriptures = scriptures.ToList();
-            // scripture.Split("~");
-
-            // string[] scriptures = System.IO.File.ReadAllLines("scriptures.txt");
-            // List<string> _scriptures = scriptures.ToList();
-
-            // // Select a random scripture from the loaded list and create an instance of it
-            // Random random = new Random();
-            // int randomIndex = random.Next(0, scriptures.Count);
-            // Scripture scripture = scriptures[randomIndex];
+            ConsoleKeyInfo pressedKey = new ConsoleKeyInfo();
 
             Console.WriteLine("Welcome to the Scripture Memorizing Program!\n");
 
@@ -29,25 +19,25 @@ namespace Program1
             Scripture scripture = new Scripture(reference, "Trust in the Lord with all thy heart and lean not unto thy own understanding; in all thy ways acknowledge him, and he shall direct thy paths.");
             Console.WriteLine(scripture.GetRenderedText());
 
-            Console.Write("\nPress ENTER to continue or type \"exit\" to quit. ");
+            Console.Write("\nPress ENTER to continue or press Esc to quit. ");
+            pressedKey = Console.ReadKey();
 
             bool _isHidden = scripture.IsCompletelyHidden();
             bool _isComplete = false;
+            int hiddenWordCount =  0;
 
             while (_isHidden == false && _isComplete == false)
             {
-                int hiddenWordCount = scripture.GetWordCount();
                 int wordObjectCount = scripture.GetWordCount();
-                string userInput = Console.ReadLine();
 
-                if (userInput == "")
+                if (pressedKey.Key == ConsoleKey.Enter)
                 {
                     // Hide 3 words at a time
                     scripture.HideWords();
                     scripture.HideWords();
                     scripture.HideWords();
 
-                    hiddenWordCount = scripture.GetWordCount();
+                    hiddenWordCount += 3;
 
                     // Clear the Console
                     Console.Clear();
@@ -55,14 +45,15 @@ namespace Program1
                     // Display the scripture with some words hidden
                     Console.WriteLine("Welcome to the Scripture Memorizing Program!");
                     Console.WriteLine(scripture.GetRenderedText());
-                    Console.Write("\nPress ENTER to continue or type \"exit\" to quit. ");
+                    Console.Write("\nPress ENTER to continue or press Esc to quit. ");
+                    pressedKey = Console.ReadKey();
 
                     // Check if scripture is completely hidden
                     _isHidden = scripture.IsCompletelyHidden();
                 }
 
                 // Quit program if user types "exit"
-                else if (userInput == "exit")
+                else if (pressedKey.Key == ConsoleKey.Escape)
                 {
                     _isComplete = true;
                 }
@@ -73,9 +64,15 @@ namespace Program1
                     Console.WriteLine("Not a valid selection.");
                     Console.Write("Please press ENTER to continue or type \"exit\" to quit. ");
                 }
+
+                // End loop if all words are hidden
+                if (pressedKey.Key == ConsoleKey.Enter && wordObjectCount == hiddenWordCount)
+                {
+                    break;
+                }
             }
             
-            Console.WriteLine("Thank you, good Bye.");
+            Console.WriteLine("\nThank you, good Bye.");
         }
     }
 }
