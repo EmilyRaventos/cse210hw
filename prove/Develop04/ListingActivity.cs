@@ -13,7 +13,7 @@ public class ListingActivity : Activity
     private string _randomListingPrompt;
 
     // Variables for something with the prompt answers
-    private List<string> _ListingPromptAnswers;
+    private List<string> _listingPromptAnswers;
     private string _answer;
 
     public ListingActivity()
@@ -25,25 +25,25 @@ public class ListingActivity : Activity
     public void StartListingActivity()
     {
         // Tell the user to prepare to begin and pause for several seconds
+        Console.Clear();
         Console.Write("Get Ready... \n");
         PauseSpinner(3);
 
         Console.WriteLine("List as many responses you can to the following prompt: ");
-        Console.Write("--- ");
-        Console.WriteLine(GetListPrompt());
-        Console.WriteLine("\b ---");
+        Console.Write($"--- {GetListPrompt()} ---\n");
 
-        Console.WriteLine("You may begin in: ");
+        Console.Write("You may begin in: ");
         PauseCountdownTimer(5);
+        Console.WriteLine();
 
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(_duration);
 
-        while (DateTime.Now < endTime)
+        while (DateTime.Now > endTime) // this loop never ends because it says ">", but "<" causes an error.
         {
-            Console.Write(">");
+            Console.Write("> ");
             _answer = Console.ReadLine();
-            _ListingPromptAnswers.Add(_answer);
+            // _listingPromptAnswers.Add(_answer);
         }
 
         Console.WriteLine($"You listed {GetListCount()} items!");
@@ -59,6 +59,6 @@ public class ListingActivity : Activity
 
     public int GetListCount()
     {
-        return _ListingPromptAnswers.Count();
+        return _listingPromptAnswers.Count();
     }
 }

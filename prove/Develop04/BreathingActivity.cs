@@ -10,6 +10,7 @@ public class BreathingActivity: Activity
     public void StartBreathingActivity(int duration)
     {
         // Tell the user to prepare to begin and pause for several seconds
+        Console.Clear();
         Console.Write("Get Ready... \n");
         PauseSpinner(3);
 
@@ -25,7 +26,7 @@ public class BreathingActivity: Activity
 
             // Display message then countdown for 5 seconds
             Console.Write("Now breathe out... ");
-            PauseCountdownTimer(5);
+            PauseCountdownTimer(6);
             Console.WriteLine();
         }
     }

@@ -27,6 +27,7 @@ public class ReflectingActivity : Activity
     public void StartReflectingActivity(int _duration)
     {
         // Tell the user to prepare to begin and pause for several seconds
+        Console.Clear();
         Console.Write("Get Ready... \n");
         PauseSpinner(3);
 

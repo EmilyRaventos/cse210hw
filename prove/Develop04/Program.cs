@@ -45,8 +45,7 @@ class Program
                 la1.DisplayStartMessage();
                 _duration = Convert.ToInt32(Console.ReadLine());
 
-                // StartListingActivity
-                
+                la1.StartListingActivity();
                 la1.DisplayEndMessage(_duration);
             }
 
@@ -54,12 +53,6 @@ class Program
             {
                 _complete = true;
             }
-
-            // Add if the loop doesn't break when "4" is chosen
-            // if (_complete == true)
-            // {
-            //     break;
-            // }
         }
     }
 }

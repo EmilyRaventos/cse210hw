@@ -17,7 +17,7 @@ public class Activity
         Console.Clear(); // Clear screen
         Console.WriteLine($"Welcome to the {_activityName} activity.\n");
         Console.WriteLine($"{_description}\n");
-        Console.WriteLine("How long, in seconds, would you like your session to be? ");
+        Console.Write("How long, in seconds, would you like your session to be? ");
     }
 
     public void DisplayEndMessage(int _duration)
