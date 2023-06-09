@@ -45,7 +45,7 @@ class Program
                 la1.DisplayStartMessage();
                 _duration = Convert.ToInt32(Console.ReadLine());
 
-                la1.StartListingActivity();
+                la1.StartListingActivity(_duration);
                 la1.DisplayEndMessage(_duration);
             }
 
