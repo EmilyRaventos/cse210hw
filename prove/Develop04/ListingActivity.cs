@@ -14,12 +14,14 @@ public class ListingActivity : Activity
 
     // Variables to save and load prompt answers
     public List<string> _listAnswers = new List<string>();
+    public List<string> _pastAnswers = new List<string>();
     private string _answer;
 
     public ListingActivity() // Constructor to define activity name and description
     {
         _activityName = "Listing Activity";
         _description = "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.";
+        // _activityCount = ActivityCount();
     }   
 
     public void StartListingActivity(int duration) // Run the activity
@@ -51,12 +53,20 @@ public class ListingActivity : Activity
         }
 
         Console.WriteLine($"You listed {GetListCount()} items!");
-        Console.WriteLine($"Would you like to save your answers (y/n)? ");
+        Console.Write("Would you like to save your answers (y/n)? ");
         string response = Console.ReadLine();
 
         if (response == "y")
         {
             SaveLog(prompt);
+        }
+
+        Console.Write("Would you like to view your past answers (y/n)? ");
+        string response2 = Console.ReadLine();
+
+        if (response2 == "y")
+        {
+            DisplayPastAnswers(prompt);
         }
     }
 
@@ -68,9 +78,7 @@ public class ListingActivity : Activity
                 Console.Write(".");
                 Thread.Sleep(1000);
             }
-
-            // string[] pastAnswers = System.IO.File.ReadAllLines("mylog.txt");
-            // List<string> _pastAnswers = pastAnswers.ToList();
+            Console.WriteLine();
 
             // if (_pastAnswers != null)
             // {
@@ -104,32 +112,28 @@ public class ListingActivity : Activity
         return _listAnswers.Count();
     }
 
-    // public void DisplayAnswers()
-    // {
-    //     foreach (string answer in _listAnswers)
-    //     {
-    //         if (answer != _listAnswers[-1])
-    //         {
-    //             Console.Write($"{answer}, ");
-    //         }
-    //         else
-    //         {
-    //             Console.Write(answer);
-    //         }
-    //     }
-    // }
+     public void DisplayPastAnswers(string prompt)
+    {
+        Console.Write("\nLoading file");
+        for (int i = 3; i > 0; i--)
+        {
+            Console.Write(".");
+            Thread.Sleep(1000);
+        }
+        Console.WriteLine();
 
-    // public List<string> LoadAnswers()
-    // {
-    //     Console.Write("\nLoading file ");
-    //     for (int i = 3; i > 0; i--)
-    //     {
-    //         Console.Write(".");
-    //         Thread.Sleep(1000);
-    //     }
+        string[] pastAnswers = System.IO.File.ReadAllLines("mylog.txt");
+        _pastAnswers = pastAnswers.ToList();
+        
+        foreach (string line in _pastAnswers)
+        {
+            Console.WriteLine($"{line}");
+        }
+    }
 
-    //     string[] pastAnswers = System.IO.File.ReadAllLines("mylog.txt");
-    //     _listAnswers = pastAnswers.ToList();
-    //     return _listAnswers;
+    // public int ActivityCount()
+    // {
+    //     _activityCount += 1;
+    //     return _activityCount;
     // }
 }

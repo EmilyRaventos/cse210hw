@@ -4,6 +4,7 @@ public class Activity
 {
     protected string _activityName;
     protected string _description;
+    protected int _activityCount;
     protected int _duration;
     protected List<string> _spinnerLines = new List<string> {"|","/","-","\\","|","/", "-"};
 
@@ -25,6 +26,7 @@ public class Activity
         Console.WriteLine("Well done!");
         PauseSpinner(3);
         Console.WriteLine($"You have completed another {_duration} seconds of the {_activityName}");
+        // Console.WriteLine($"You have now done this activity {_activityCount} times");
         PauseSpinner(3);
     }
 
