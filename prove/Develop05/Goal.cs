@@ -16,13 +16,6 @@ public abstract class Goal
     }
 
     public abstract string CreateGoal(Goal goal);
-    // public abstract void DisplayGoal(Goal goal);
-    // public abstract void RecordEvent(int goalNumber);
-
-    // public bool IsComplete()
-    // {
-    //     return true;
-    // }
 
     public string GetGoalName()
     {
@@ -32,5 +25,10 @@ public abstract class Goal
     public string GetGoalDescription()
     {
         return _goalDescription;
+    }
+
+    public int GetGoalPoints()
+    {
+        return _goalPoints;
     }
 }

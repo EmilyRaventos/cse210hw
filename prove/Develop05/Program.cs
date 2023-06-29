@@ -4,9 +4,8 @@ class Program
 {
     static List<Goal> _goals = new List<Goal>();
     static List<string> _listOfGoals = new List<string>();
-    static List<string> _goalTitles = new List<string>();
     static int _totalPoints = 0;
-    static List<int> _pointsList = new List<int>();
+    static int _bonusPoints = 0;
     static bool notDone;
     static bool isEmpty;
 
@@ -44,16 +43,14 @@ class Program
                 if (secondChoice == "1")
                 {
                     SimpleGoal g = new SimpleGoal(goalName, goalDescription, goalPoints);
-                    AddGoal(g);
-                    _pointsList.Add(goalPoints);
+                    AddGoal(g.CreateGoal(g));
                 }
 
                 // Create an eternal goal
                 else if (secondChoice == "2")
                 {
                     EternalGoal g = new EternalGoal(goalName, goalDescription, goalPoints);
-                    AddGoal(g);
-                    _pointsList.Add(goalPoints);
+                    AddGoal(g.CreateGoal(g));
                 }
 
                 // Create a checklist goal
@@ -66,8 +63,7 @@ class Program
                     int bonusPoints = Convert.ToInt32(Console.ReadLine());
 
                     ChecklistGoal g = new ChecklistGoal(goalName, goalDescription, goalPoints, targetAmount, bonusPoints);
-                    AddGoal(g);
-                    _pointsList.Add(goalPoints);
+                    AddGoal(g.CreateGoal(g));
                 }
             }    
 
@@ -78,7 +74,7 @@ class Program
 
                 if ( (_listOfGoals!= null) && (!_listOfGoals.Any()) )
                 {
-                    Console.WriteLine("No goals to display. Type '1' to write a goal.");
+                    Console.WriteLine("No goals to display. Type '1' to write a goal or '4' to load past goals.");
                 }
             }
 
@@ -92,6 +88,22 @@ class Program
             else if (_choice == "4")
             {
                 LoadGoals();
+                foreach (string goal in _listOfGoals)
+                {
+                    char ch = '~';
+                    int freq = goal.Count(f => (f == ch));
+
+                    string[] parts = goal.Split("~~");
+
+                    if (parts[0] == "[X]")
+                    {
+                        _totalPoints += Convert.ToInt32(parts[3]);
+                    }
+                    if (freq > 6 && Convert.ToInt32(parts[4]) != 0)
+                    {
+                        _totalPoints += Convert.ToInt32(parts[4]) * Convert.ToInt32(parts[3]);
+                    }
+                }
             }
 
             // Record an event
@@ -103,10 +115,85 @@ class Program
 
                 // MarkComplete(i_goal);
                 string selectedGoal = _listOfGoals[i_goal];
-                string completedGoal = selectedGoal.Replace("[ ]", "[X]");
-                _listOfGoals[i_goal] = completedGoal;
+                char ch = '~';
+                int freq = selectedGoal.Count(f => (f == ch));
 
-                Console.WriteLine($"Congratulations! You've earned ___ points!");
+                string [] parts = selectedGoal.Split("~~");
+                int length = parts.Length;
+                string rest = "";
+                    
+                // If it's a simple goal or an eternal goal, check it off
+                if (freq <= 6)
+                {
+                    for (int i = 1; i < length; i++) 
+                    {
+                        if (i != length - 1)
+                        {
+                            rest = rest + parts[i] + "~~";
+                        }
+                        else
+                        {
+                            rest = rest + parts[i];
+                        }
+                    }
+
+                    selectedGoal = $"[X]~~{rest}";
+                }
+
+                // If it's a checklist goal and this is the last time needed to complete it, increase and check it off.
+                else if ((freq > 6) && (Convert.ToInt32(parts[4]) == Convert.ToInt32(parts[5])-1))
+                {
+                    for (int i = 1; i < length; i++) 
+                    {
+                        if (i != length -1 && i != length - 3)
+                        {
+                            rest = rest + parts[i] + "~~";
+                        }
+                        else if (i == length - 3)
+                        {
+                            int actual = Convert.ToInt32(parts[i]);
+                            actual += 1;
+                            actual.ToString();
+                            rest = rest + actual + "~~";
+                        }
+                        else if (i == length - 1)
+                        {
+                            rest = rest + parts[i];
+                        }
+                    } 
+                    selectedGoal = $"[X]~~{rest}";
+                    _bonusPoints = Convert.ToInt16(parts[length-1]);
+                }
+
+                // If it's a checklist goal that is not complete, increase the amount.
+                else
+                {
+                    for (int i = 0; i < length; i++) 
+                    {
+                        if (i != length -1 && i != length - 3)
+                        {
+                            rest = rest + parts[i] + "~~";
+                        }
+                        else if (i == length - 3)
+                        {
+                            int actual = Convert.ToInt32(parts[i]);
+                            actual += 1;
+                            actual.ToString();
+                            rest = rest + actual + "~~";
+                        }
+                        else if (i == length - 1)
+                        {
+                            rest = rest + parts[i];
+                        }
+                    }
+                    selectedGoal = rest;
+                }
+
+                _listOfGoals[i_goal] = selectedGoal;
+                int earnedPoints = Convert.ToInt32(parts[3]) + _bonusPoints;
+                _totalPoints += Convert.ToInt32(parts[3]) + _bonusPoints;
+            
+                Console.WriteLine($"Congratulations! You've earned {earnedPoints} points!");
                 Console.WriteLine($"You now have {_totalPoints} points.");
             }
 
@@ -118,10 +205,6 @@ class Program
             }
         }
     }
-    // using(StreamReader reader = new StreamReader("goals.txt"))
-    // {
-
-    // }
 
     // Methods for all choices
 
@@ -129,11 +212,21 @@ class Program
     static void DisplayAllGoals()
     {
         int i = 1;
-
         foreach (string goal in _listOfGoals)
         {
-            Console.WriteLine($"{i}. {goal}");
-            i++;
+            string [] parts = goal.Split("~~");
+            char ch = '~';
+            int freq = goal.Count(f => (f == ch));
+
+            if (freq <= 6)
+            {
+                Console.WriteLine($"{i}. {parts[0]} {parts[1]} ({parts[2]})");
+            }
+            else
+            {
+            Console.WriteLine($"{i}. {parts[0]} {parts[1]} ({parts[2]}) -- Currently completed: {parts[4]}/{parts[5]}");
+            }
+            i ++;
         }
     }
     
@@ -142,24 +235,24 @@ class Program
     {
         int k = 1;
 
-        foreach (string title in _goalTitles)
+        foreach (string goal in _listOfGoals)
         {
-            Console.WriteLine($"{k}. {title}");
+            string [] parts = goal.Split("~~");
+            Console.WriteLine($"{k}. {parts[1]}");
+            k++;
         }
-        k++;
     }
 
     // Add the newly created goal to the list of goals
-    static void AddGoal(Goal goal)
+    static void AddGoal(string goal)
     {
-        _listOfGoals.Add(goal.CreateGoal(goal));
-        _goalTitles.Add(goal.GetGoalName());
+        _listOfGoals.Add(goal);
     }
 
     // Save goals to a file called "mygoals.txt"
     static void SaveGoals(List<string> _listOfGoals)
     {
-        Console.Write("\nSaving goals to 'mygoals.txt'");
+        Console.Write("\nSaving goals to 'goals.txt'");
         for (int i = 3; i > 0; i--)
         {
             Console.Write(".");
@@ -172,7 +265,7 @@ class Program
 
             if (isEmpty)
             {
-                using (StreamWriter outputfile = new StreamWriter("mygoals.txt"))
+                using (StreamWriter outputfile = new StreamWriter("goals.txt"))
                 {
                     foreach(string goal in _listOfGoals)
                     {
@@ -183,33 +276,6 @@ class Program
             else
             {
                 Console.WriteLine("No goals to save. Type '1' to write a goal.\n ");
-            }
-
-            // Create file for list of Goals --- doesn't work ----
-            using (StreamWriter outputfile = new StreamWriter("thegoals.txt"))
-            {
-                foreach(Goal goal in _goals)
-                {
-                    outputfile.WriteLine(goal);
-                }
-            }
-
-            // Create file for list of goal titles
-            using (StreamWriter outputfile = new StreamWriter("goalTitles.txt"))
-            {
-                foreach(string title in _goalTitles)
-                {
-                    outputfile.WriteLine(title);
-                }
-            }
-
-            // Create file for points
-            using (StreamWriter outputfile = new StreamWriter("pointTracker.txt"))
-            {
-                foreach(int point in _pointsList)
-                {
-                    outputfile.WriteLine(point);
-                }
             }
     }
 
@@ -223,30 +289,10 @@ class Program
             Thread.Sleep(1000);
         }
         Console.WriteLine();
-        
-        // Stupid way to keep track of points to add up on completion
-        int k = 0;
-        string[] pastPoints = System.IO.File.ReadAllLines("pointTracker.txt");
-        List<string> _pastPointList = pastPoints.ToList();
-        foreach (string point in _pastPointList)
-        {
-            _pointsList.Insert(k, Convert.ToInt32(point));
-            k++;
-        }
-
-        int h = 0;
-
-        string[] pastTitles = System.IO.File.ReadAllLines("goalTitles.txt");
-        List<string> _pastTitlesList = pastTitles.ToList();
-        foreach (string title in _pastTitlesList)
-        {
-            _goalTitles.Insert(h, title);
-            h++;
-        }
 
         int j = 0;
 
-        string[] pastGoals = System.IO.File.ReadAllLines("mygoals.txt");
+        string[] pastGoals = System.IO.File.ReadAllLines("goals.txt");
         List<string> _pastGoalsList = pastGoals.ToList();
         foreach (string goal in _pastGoalsList)
         {
@@ -255,29 +301,4 @@ class Program
         }
         return _listOfGoals;
     }
-
-    // // Mark the goal as complete
-    // static void MarkComplete(int i_goal)
-    // {
-    //     string selectedGoal = _listOfGoals[i_goal];
-    //     string search = "--";
-
-    //     if (selectedGoal.Contains(search))
-    //     {
-    //         if (_actualAmount == _targetAmount)
-    //         {
-    //             string completedGoal = selectedGoal.Replace("[ ]", "[X]");
-    //             _listOfGoals[i_goal] = completedGoal;
-    //         }   
-    //         else
-    //         {
-                
-    //         }
-    //     }
-    //     else
-    //     {
-    //         string completedGoal = selectedGoal.Replace("[ ]", "[X]");
-    //         _listOfGoals[i_goal] = completedGoal;
-    //     }
-    // }
 }

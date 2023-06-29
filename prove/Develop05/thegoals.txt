@@ -1,3 +1,0 @@
-SimpleGoal
-EternalGoal
-ChecklistGoal

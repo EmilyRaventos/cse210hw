@@ -10,10 +10,6 @@ public class EternalGoal : Goal
     }
     public override string CreateGoal(Goal goal)
     {
-        return $"[ ] {goal.GetGoalName()} ({goal.GetGoalDescription()})";
+        return $"[ ]~~{goal.GetGoalName()}~~{goal.GetGoalDescription()}~~{goal.GetGoalPoints()}";
     }
-    // public override void RecordEvent(int goalNumber)
-    // {
-
-    // }
 }

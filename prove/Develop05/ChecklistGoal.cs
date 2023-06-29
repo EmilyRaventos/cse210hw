@@ -16,20 +16,36 @@ public class ChecklistGoal : Goal
     
     public override string CreateGoal(Goal goal)
     {
-        return $"[ ] {goal.GetGoalName()} ({goal.GetGoalDescription()}) -- Currently Completed {_actualAmount}/{_targetAmount}";
+        return $"[ ]~~{goal.GetGoalName()}~~{goal.GetGoalDescription()}~~{goal.GetGoalPoints()}~~{GetActual()}~~{GetTarget()}~~{GetBonus()}";
     }
 
-    // public override void DisplayGoal(Goal goal)
-    // {
-        
-    // }
-    // public override void RecordEvent(int goalNumber)
-    // {
-        
-    // }
-    
-    // public bool IsComplete()
-    // {
+    public int GetActual()
+    {
+        return _actualAmount;
+    }
 
-    // }
+    public void SetActual(int actualAmount)
+    {
+        _actualAmount = actualAmount;
+    }
+
+    public int GetTarget()
+    {
+        return _targetAmount;
+    }
+
+    public void SetTarget(int targetAmount)
+    {
+        _targetAmount = targetAmount;
+    }
+
+    public int GetBonus()
+    {
+       return _bonusPoints;
+    }
+
+    public void SetBonus(int bonusPoints)
+    {
+        _bonusPoints = bonusPoints;
+    }
 }

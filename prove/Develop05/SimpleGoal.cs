@@ -11,15 +11,6 @@ public class SimpleGoal : Goal
 
     public override string CreateGoal(Goal goal)
     {
-        return $"[ ] {goal.GetGoalName()} ({goal.GetGoalDescription()})";
+        return $"[ ]~~{goal.GetGoalName()}~~{goal.GetGoalDescription()}~~{goal.GetGoalPoints()}";
     }
-    // public override void RecordEvent(int goalNumber)
-    // {
-    //     Console.WriteLine($"Congratulations! You've earned {_goalPoints} points!");
-    // }
-
-    // public bool IsComplete()
-    // {
-
-    // }
 }
