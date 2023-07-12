@@ -10,13 +10,9 @@ class Program
         _listOfVideos = listOfVideos;
 
         Video v1 = new Video("Dune", "Denis Villeneuve", 9300);
-        // v1.DisplayInformation();
         Video v2 = new Video("Avatar", "James Cameron", 9720);
-        // Console.WriteLine(v2);
         Video v3 = new Video("Pride and Prejudice", "Joe Wright", 7740);
-        // Console.WriteLine(v3);
         Video v4 = new Video("Captain America: The First Avenger", "Joe Johnston", 7440);
-        // Console.WriteLine(v4);
 
         Comment c1 = new Comment("Jane Doe", "I did not read the book and I did not know what to expect exactly. I LOVED it.");
         Comment c2 = new Comment("Johnny Smith", "This is an all-time great science fiction movie");
