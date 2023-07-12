@@ -3,9 +3,12 @@ using System.Collections;
 
 class Program
 {
-    static List<Video> _listOfVideos = new List<Video>();
+    static List<Video> _listOfVideos;
     static void Main(string[] args)
     {   
+        List<Video> listOfVideos = new List<Video>();
+        _listOfVideos = listOfVideos;
+
         Video v1 = new Video("Dune", "Denis Villeneuve", 9300);
         // v1.DisplayInformation();
         Video v2 = new Video("Avatar", "James Cameron", 9720);

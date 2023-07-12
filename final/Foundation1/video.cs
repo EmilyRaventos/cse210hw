@@ -8,6 +8,8 @@ public class Video
     private List<Comment> _listOfComments;
     public Video(string title, string author, int length)
     {
+        List<Comment> listOfComments = new List<Comment>();
+        _listOfComments = listOfComments;
         _length = length;
         _title = title;
         _author = author;
@@ -33,5 +35,6 @@ public class Video
                 comment.DisplayComment();
             }
         }
+        Console.WriteLine();
     }
 }
