@@ -1,58 +1,58 @@
-class Scriptures 
-{
-    HideWord()
-    {
+// class Scriptures 
+// {
+//     HideWord()
+//     {
 
-    }
-    GetRenderedText()
-    {
+//     }
+//     GetRenderedText()
+//     {
 
-    }
+//     }
 
-    IsCompletelyHidden()
-    {
+//     IsCompletelyHidden()
+//     {
 
-    }
-}
+//     }
+// }
 
-class Reference
-{
-    string _book;
-    string _chapterNumber;
-    string _verseNumber;
-    string _verseEndNumber;
-    string _reference;
+// class Reference
+// {
+//     string _book;
+//     string _chapterNumber;
+//     string _verseNumber;
+//     string _verseEndNumber;
+//     string _reference;
 
-    Reference()
-    {
-        _reference = $"{_book} {_chapter}:{_verseNumber}";
-    }
+//     Reference()
+//     {
+//         _reference = $"{_book} {_chapter}:{_verseNumber}";
+//     }
 
-    GetReference()
-    {
+//     GetReference()
+//     {
         
-    }
-}
+//     }
+// }
 
-class Word
-{
-    Hide()
-    {
+// class Word
+// {
+//     Hide()
+//     {
 
-    }
+//     }
 
-    Show()
-    {
+//     Show()
+//     {
 
-    }
+//     }
 
-    IsHidden()
-    {
+//     IsHidden()
+//     {
 
-    }
+//     }
 
-    GetRenderedText()
-    {
+//     GetRenderedText()
+//     {
 
-    }
-}
+//     }
+// }
