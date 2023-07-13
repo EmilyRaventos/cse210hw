@@ -29,6 +29,6 @@ public abstract class Activity
     }
     public void GetSummary(Activity activity)
     {
-        Console.WriteLine($"{_type}: {_date}({_length} min)-Distance {activity.GetDistance()} miles, Speed {activity.GetSpeed()} mph, Pace {Math.Round(activity.GetPace(), 2)} min per mile");
+        Console.WriteLine($"{_date} - {_type} ({_length} min) - Distance: {activity.GetDistance()} miles, Speed: {activity.GetSpeed()} mph, Pace: {Math.Round(activity.GetPace(), 2)} min per mile");
     }
 }

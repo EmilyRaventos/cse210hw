@@ -52,7 +52,7 @@ class Program
         Product p6 = new Product("desk", 3, 175, 1);
 
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Order 1");
+        Console.WriteLine("Order 2");
         Console.ResetColor();
 
         // Create the order
