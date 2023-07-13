@@ -8,6 +8,7 @@ public class Order
     private double _shippingCost;
     private string _packingLabel;
     private string _shippingLabel;
+    private string _receipt;
 
     public Order(Customer customer)
     {
@@ -19,8 +20,9 @@ public class Order
     public void DisplayOrder()
     {
         Console.WriteLine($"Packing Label: \n{_packingLabel}");
-        Console.WriteLine($"Shipping Label: \n{_shippingLabel}\n");
-        Console.WriteLine($"Total Cost: {_totalCost}\n\n");
+        Console.WriteLine($"Shipping Label: \n{_shippingLabel}");
+        Console.WriteLine($"Itemized Reciept: \n{_receipt}\n");
+        Console.WriteLine($"Total Cost: ${Math.Round(_totalCost,2)}\n");
     }
 
     public void AddProduct(Product product)
@@ -69,6 +71,14 @@ public class Order
         string customerName = customer.GetCustomerName();
         Address customerAddress = customer.GetCustomerAddress();
         string customerAddressString = customerAddress.GetAddressString();
-        _shippingLabel = $"{customerName}\n{customerAddressString}";
+        _shippingLabel = $"{customerName}\n{customerAddressString}\n";
+    }
+    public void GetReceipt(List<Product> listOfProducts)
+    {
+        foreach (Product product in listOfProducts)
+        {
+            _receipt += $"{product.GetProductName()}(s) ${Math.Round(product.GetTotalPrice(),2)}\n";
+        }
+        _receipt += $"Shipping Cost: ${Math.Round(_shippingCost,2)}";
     }
 }

@@ -39,6 +39,7 @@ class Program
         // Create the labels
         o1.GetPackingLabel(_listOfProducts);
         o1.GetShippingLabel(c1);
+        o1.GetReceipt(_listOfProducts);
 
         o1.DisplayOrder();
 
@@ -67,6 +68,7 @@ class Program
         // Create the labels
         o2.GetPackingLabel(_listOfProducts);
         o2.GetShippingLabel(c2);
+        o2.GetReceipt(_listOfProducts);
 
         o2.DisplayOrder();
     }
