@@ -16,9 +16,16 @@ public class Program
         _listOfActivities.Add(a2);
         _listOfActivities.Add(a3);
 
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("========================================================================================");
+        Console.WriteLine("                                     Foundation 4                                       ");
+        Console.WriteLine("========================================================================================\n");
+        Console.ResetColor();
+
         foreach (Activity activity in _listOfActivities)
         {
             activity.GetSummary(activity);
         }
+        Console.WriteLine();
     }
 }

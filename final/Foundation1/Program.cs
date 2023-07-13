@@ -47,6 +47,12 @@ class Program
         _listOfVideos.Add(v3);
         _listOfVideos.Add(v4);
 
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("========================================================================================");
+        Console.WriteLine("                                     Foundation 1                                       ");
+        Console.WriteLine("========================================================================================\n");
+        Console.ResetColor();
+
         DisplayVideoInfo();
     }
 
@@ -54,6 +60,7 @@ class Program
     {
         foreach (Video video in _listOfVideos)
         {
+            Index(video)
             video.DisplayInformation();
         }
     }

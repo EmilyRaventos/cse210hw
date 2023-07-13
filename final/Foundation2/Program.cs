@@ -8,6 +8,12 @@ class Program
         List<Product> listOfProducts = new List<Product>();
         _listOfProducts = listOfProducts;
 
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("========================================================================================");
+        Console.WriteLine("                                     Foundation 2                                       ");
+        Console.WriteLine("========================================================================================\n");
+        Console.ResetColor();
+
         // Create first customer and address
         Address a1 = new Address("514 W Pumpkin dr.", "Rexburg", "Idaho", "USA");
         Customer c1 = new Customer("Alie Johnson", a1);
@@ -16,6 +22,10 @@ class Program
         Product p1 = new Product("apple", 1, 0.25, 6);
         Product p2 = new Product("banana", 2, 0.5, 8);
         Product p3 = new Product("orange", 3, 0.75, 3);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Order 1");
+        Console.ResetColor();
 
         // Create the order
         Order o1 = new Order(c1);
@@ -40,6 +50,10 @@ class Program
         Product p4 = new Product("book", 1, 5.25, 5);
         Product p5 = new Product("chair", 2, 25, 2);
         Product p6 = new Product("desk", 3, 175, 1);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Order 1");
+        Console.ResetColor();
 
         // Create the order
         Order o2 = new Order(c2);

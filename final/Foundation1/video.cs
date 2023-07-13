@@ -25,10 +25,11 @@ public class Video
     }
     public void DisplayInformation()
     {
-        Console.WriteLine($"Title: {_title} --- Author: {_author} --- Length: {_length} seconds");
+        Console.WriteLine($"Title: {_title}\nAuthor: {_author}\nLength: {_length} seconds");
         if (_listOfComments.Count() != 0)
         {
             Console.WriteLine($"Comment Count: {GetCommentCount()}");
+            Console.WriteLine("Comments:");
 
             foreach(Comment comment in _listOfComments)
             {
@@ -36,5 +37,8 @@ public class Video
             }
         }
         Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("========================================================================================\n");
+        Console.ResetColor();
     }
 }

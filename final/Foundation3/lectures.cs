@@ -13,7 +13,7 @@ class Lectures: Events
         _time = time;
         _speaker = speaker;
         _capacity = capacity;
-        _specificInfo = $"Speaker: {_speaker} --- Capacity: {_capacity}";
+        _specificInfo = $"Speaker: {_speaker}\nCapacity: {_capacity}";
         _address = address;
     }
 }
